@@ -4,30 +4,60 @@
              x:Class="MathGame.MainPage">
 
     <ScrollView>
-        <VerticalStackLayout Padding="30,0" Spacing="25">
-            <Label Text="Desafio Matemático" FontSize="32" HorizontalOptions="Center"  VerticalOptions="Start"/>
-            
-            <Image Source="mathlogo.png" Aspect="Center" HorizontalOptions="Center" VerticalOptions="Center"/>
+        <VerticalStackLayout Padding="30,20" Spacing="20">
+            <Label Text="Desafio Matemático" FontSize="32" HorizontalOptions="Center" FontAttributes="Bold" />
 
-            <Label Text="Resolva o desafio matemático abaixo: " FontSize="18" HorizontalOptions="Center" VerticalOptions="Start"/>
+            <Image Source="mathlogo.png" HeightRequest="100" Aspect="AspectFit" HorizontalOptions="Center" />
 
-            <HorizontalStackLayout Spacing="10" HorizontalOptions="Center">
-                <Label x:Name="lb1" FontSize="30" Text="5"/>
-                <Label x:Name="lb2" FontSize="30" Text="x"/>
-                <Label x:Name="lb3" FontSize="30" Text="5"/>
-            </HorizontalStackLayout>
+            <!-- PAINEL DE CONFIGURAÇÃO (Visível apenas antes de iniciar a partida) -->
+            <VerticalStackLayout x:Name="SetupPanel" Spacing="15" Margin="0,20,0,0">
+                <Label Text="Selecione a Dificuldade:" FontSize="18" HorizontalOptions="Center"/>
+                <Picker x:Name="pkDificuldade" HorizontalOptions="Center" WidthRequest="200">
+                    <Picker.Items>
+                        <x:String>Fácil (1 a 10)</x:String>
+                        <x:String>Médio (1 a 50)</x:String>
+                        <x:String>Difícil (1 a 100)</x:String>
+                    </Picker.Items>
+                    <Picker.SelectedIndex>0</Picker.SelectedIndex>
+                </Picker>
+                <Button Text="Iniciar Partida" Clicked="BtIniciar_Clicked" WidthRequest="200" HorizontalOptions="Center" Margin="0,10,0,0"/>
+            </VerticalStackLayout>
 
-            <Entry x:Name="txR" Placeholder="Digite a resposta aqui..." Keyboard="Numeric"/>
+            <!-- PAINEL DO JOGO (Visível apenas durante a partida) -->
+            <VerticalStackLayout x:Name="GamePanel" Spacing="15" IsVisible="False">
 
-            <Button x:Name="btOK" Text="Conferir Resultado" Clicked="btOK_Clicked"/>
+                <Label x:Name="lbProgresso" Text="Questão 1/10" FontSize="20" HorizontalOptions="Center" FontAttributes="Bold" TextColor="Gray" />
 
-            <Image x:Name="imR" Source="question.png" Aspect="Center" HorizontalOptions="Center" VerticalOptions="Center"/>
+                <!-- Barra de Tempo Dinâmica -->
+                <ProgressBar x:Name="pbTempo" Progress="1.0" ProgressColor="Green" HeightRequest="10" />
+                <Label x:Name="lbTempo" Text="30s" HorizontalOptions="Center" FontAttributes="Bold" />
 
-            <HorizontalStackLayout Spacing="10" HorizontalOptions="Center">
-                <Label x:Name="lbAcertou" FontSize="30" Text="Acertos: 0"/>
-                <Label x:Name="lbErrou" FontSize="30" Text="Erros: 0"/>
-            </HorizontalStackLayout>
+                <!-- Placar e Pontuação -->
+                <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
+                    <Label Text="Pontuação:" FontSize="18" />
+                    <Label x:Name="lbPontuacao" Text="0" FontSize="18" FontAttributes="Bold" />
+                </HorizontalStackLayout>
+
+                <!-- Área da Equação -->
+                <HorizontalStackLayout Spacing="15" HorizontalOptions="Center" Margin="0,10">
+                    <Label x:Name="lb1" FontSize="45" Text="5" FontAttributes="Bold"/>
+                    <Label x:Name="lb2" FontSize="45" Text="x" FontAttributes="Bold"/>
+                    <Label x:Name="lb3" FontSize="45" Text="5" FontAttributes="Bold"/>
+                </HorizontalStackLayout>
+
+                <!-- Entrada com teclado numérico obrigatório -->
+                <Entry x:Name="txR" Placeholder="Digite a resposta" Keyboard="Numeric" HorizontalTextAlignment="Center" FontSize="24"/>
+
+                <Button x:Name="btOK" Text="Conferir Resultado" Clicked="btOK_Clicked" WidthRequest="250" HorizontalOptions="Center"/>
+
+                <Image x:Name="imR" Source="question.png" HeightRequest="80" Aspect="AspectFit" HorizontalOptions="Center"/>
+
+                <HorizontalStackLayout Spacing="30" HorizontalOptions="Center">
+                    <Label x:Name="lbAcertou" FontSize="20" Text="Acertos: 0" TextColor="Green" FontAttributes="Bold"/>
+                    <Label x:Name="lbErrou" FontSize="20" Text="Erros: 0" TextColor="Red" FontAttributes="Bold"/>
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+
         </VerticalStackLayout>
     </ScrollView>
-
 </ContentPage>
