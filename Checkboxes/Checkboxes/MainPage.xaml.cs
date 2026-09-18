@@ -1,50 +1,75 @@
 ﻿using Microsoft.Maui.Controls;
 
-namespace Checkboxes
+namespace Checkboxes;
+
+public partial class MainPage : ContentPage
 {
-    public partial class MainPage : ContentPage
+    private List<CheckBox> _checkBoxes = new List<CheckBox>();
+
+    public MainPage()
     {
-        public float fTotal;
+        InitializeComponent();
+        AtualizarContador();
+    }
 
-        public MainPage()
+    private void OnAdicionarClicked(object sender, EventArgs e)
+    {
+        string textoTarefa = TxtNovaTarefa.Text;
+
+        if (string.IsNullOrWhiteSpace(textoTarefa))
+            return;
+
+        var checkBox = new CheckBox();
+        _checkBoxes.Add(checkBox);
+
+        var label = new Label
         {
-            InitializeComponent();
+            Text = textoTarefa,
+            VerticalOptions = LayoutOptions.Center,
+            FontSize = 16
+        };
 
-            fTotal = 0.0f;
-            lbTotal.Text = $"{fTotal:F2}";
+        checkBox.CheckedChanged += (s, args) =>
+        {
+            if (checkBox.IsChecked)
+            {
+                label.TextDecorations = TextDecorations.Strikethrough;
+                label.TextColor = Colors.Gray;
+            }
+            else
+            {
+                label.TextDecorations = TextDecorations.None;
+                label.ClearValue(Label.TextColorProperty);
+            }
+
+            AtualizarContador();
+        };
+
+        var stackLayout = new HorizontalStackLayout
+        {
+            Spacing = 10,
+            Children = { checkBox, label }
+        };
+
+        ListaTarefas.Children.Add(stackLayout);
+
+        TxtNovaTarefa.Text = string.Empty;
+        AtualizarContador();
+    }
+
+    private void AtualizarContador()
+    {
+        int totalTarefas = _checkBoxes.Count;
+        int tarefasConcluidas = 0;
+
+        foreach (var cb in _checkBoxes)
+        {
+            if (cb.IsChecked)
+            {
+                tarefasConcluidas++;
+            }
         }
 
-        private void Checkbox_CheckedChanged(object sender, CheckedChangedEventArgs e)
-        {
-            fTotal = Convert.ToSingle(lbTotal.Text);
-
-            CheckBox chk = (CheckBox)sender;
-
-            if (chk.Equals(chk1))
-            {
-                if (chk.IsChecked)
-                    fTotal += Convert.ToSingle(val1.Text);
-                else
-                    fTotal -= Convert.ToSingle(val1.Text);
-            }
-            else if (chk.Equals(chk2))
-            {
-                if (chk.IsChecked)
-                    fTotal += Convert.ToSingle(val2.Text);
-                else
-                    fTotal -= Convert.ToSingle(val2.Text);
-            }
-            else if (chk.Equals(chk3))
-            {
-                if (chk.IsChecked)
-                    fTotal += Convert.ToSingle(val3.Text);
-                else
-                    fTotal -= Convert.ToSingle(val3.Text);
-            }
-
-            lbTotal.Text = $"{fTotal:F2}";
-        }
-
-
+        LblContador.Text = $"{tarefasConcluidas} de {totalTarefas} tarefas concluídas";
     }
 }

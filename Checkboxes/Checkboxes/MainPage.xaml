@@ -3,52 +3,34 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Checkboxes.MainPage">
 
-    <ScrollView>
-        <VerticalStackLayout Padding="30,0,0,0" Spacing="15">
-            <Image Source="musicstore.png"/>
+    <Grid RowDefinitions="Auto, Auto, *, Auto" Padding="20" RowSpacing="15">
 
-            <Label Text="Selecione os álbuns desejados:"/>
+        <Label Grid.Row="0"
+               Text="Minhas Tarefas" 
+               FontSize="24" 
+               FontAttributes="Bold" 
+               HorizontalOptions="Center" />
 
-            <Grid BackgroundColor="AntiqueWhite">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>                    
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
+        <Grid Grid.Row="1" ColumnDefinitions="*, Auto" ColumnSpacing="10">
+            <Entry x:Name="TxtNovaTarefa" 
+                   Grid.Column="0" 
+                   Placeholder="Digite uma nova tarefa..." 
+                   ClearButtonVisibility="WhileEditing" />
 
-                <Image Grid.Row="0" Grid.Column="0" Source="darkside.png"/>
-                <CheckBox Grid.Row="0" Grid.Column="1" x:Name="chk1" 
-                          CheckedChanged="Checkbox_CheckedChanged"/>
-                <Label Grid.Row="0" Grid.Column="2" x:Name="val1"
-                       VerticalTextAlignment="Center" Text="89.55"/>
+            <Button Grid.Column="1" 
+                    Text="Adicionar" 
+                    Clicked="OnAdicionarClicked" />
+        </Grid>
 
-                <Image Grid.Row="1" Grid.Column="0" Source="divisionbell.png"/>
-                <CheckBox Grid.Row="1" Grid.Column="1" x:Name="chk2" 
-                       CheckedChanged="Checkbox_CheckedChanged"/>
-                <Label Grid.Row="1" Grid.Column="2" x:Name="val2"
-                        VerticalTextAlignment="Center" Text="75.30"/>
+        <ScrollView Grid.Row="2">
+            <VerticalStackLayout x:Name="ListaTarefas" Spacing="10" />
+        </ScrollView>
 
-                <Image Grid.Row="2" Grid.Column="0" Source="wall.png"/>
-                <CheckBox Grid.Row="2" Grid.Column="1" x:Name="chk3" 
-                        CheckedChanged="Checkbox_CheckedChanged"/>
-                <Label Grid.Row="2" Grid.Column="2" x:Name="val3"
-                        VerticalTextAlignment="Center" Text="150.45"/>
-            </Grid>
+        <Label x:Name="LblContador"
+               Grid.Row="3"
+               Text="0 de 0 tarefas concluídas" 
+               FontSize="14" 
+               HorizontalOptions="Center" />
+    </Grid>
 
-            <HorizontalStackLayout Spacing="10" 
-                                   BackgroundColor="AntiqueWhite">
-                <Label Text="R$ " FontSize="50"/>
-                <Label x:Name="lbTotal" FontSize="50" 
-                       FontAttributes="Bold"
-                       TextColor="Red"
-                       Text="0,00"/>
-            </HorizontalStackLayout>
-
-        </VerticalStackLayout>
-    </ScrollView>
 </ContentPage>
