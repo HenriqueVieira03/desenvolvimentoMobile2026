@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:TDEBancoDados.Models"
+             x:Class="TDEBancoDados.Pages.ItensCompraPage"
+             Title="Itens da Compra">
+
+    <Grid RowDefinitions="Auto, Auto, Auto, Auto, *" Padding="16" RowSpacing="12">
+
+        <VerticalStackLayout Grid.Row="0" Spacing="2">
+            <Label x:Name="LblCompra" Style="{StaticResource TituloSecao}" />
+            <Label x:Name="LblResumo" Style="{StaticResource TextoSecundario}" />
+        </VerticalStackLayout>
+
+        <Border Grid.Row="1" Style="{StaticResource Cartao}">
+            <VerticalStackLayout Spacing="8">
+                <Label x:Name="LblModo" Text="Novo item" FontAttributes="Bold" />
+                <Picker x:Name="PckProduto" Title="Produto" SelectedIndexChanged="OnDadosItemAlterados" />
+                <Entry x:Name="TxtQuantidade" Placeholder="Quantidade" Keyboard="Numeric" TextChanged="OnDadosItemAlterados" />
+                <Label x:Name="LblParcial" Text="Valor parcial: R$ 0,00" Style="{StaticResource TextoSecundario}" />
+            </VerticalStackLayout>
+        </Border>
+
+        <Grid Grid.Row="2" ColumnDefinitions="*, *, *" ColumnSpacing="8">
+            <Button Grid.Column="0" Text="Salvar item" Clicked="OnSalvarClicked" />
+            <Button Grid.Column="1" Text="Novo" Style="{StaticResource BotaoSecundario}" Clicked="OnNovoClicked" />
+            <Button Grid.Column="2" x:Name="BtnExcluir" Text="Excluir" Style="{StaticResource BotaoPerigo}"
+                    IsEnabled="False" Clicked="OnExcluirClicked" />
+        </Grid>
+
+        <Label Grid.Row="3" Text="Itens desta compra (toque para editar)" Style="{StaticResource TextoSecundario}" />
+
+        <CollectionView Grid.Row="4"
+                        x:Name="ListaItens"
+                        SelectionMode="Single"
+                        SelectionChanged="OnItemSelecionado"
+                        EmptyView="Nenhum item adicionado a esta compra.">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:ItemCompra">
+                    <Border Style="{StaticResource ItemLista}">
+                        <VerticalStackLayout Spacing="2">
+                            <Label Text="{Binding Titulo}" FontAttributes="Bold" FontSize="16" />
+                            <Label Text="{Binding Detalhes}" Style="{StaticResource TextoSecundario}" />
+                        </VerticalStackLayout>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+
+</ContentPage>

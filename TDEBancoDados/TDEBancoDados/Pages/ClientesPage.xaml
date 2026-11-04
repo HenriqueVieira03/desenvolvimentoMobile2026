@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:TDEBancoDados.Models"
+             x:Class="TDEBancoDados.Pages.ClientesPage"
+             Title="Cadastro de Clientes">
+
+    <Grid RowDefinitions="Auto, Auto, Auto, *" Padding="16" RowSpacing="12">
+
+        <Border Grid.Row="0" Style="{StaticResource Cartao}">
+            <VerticalStackLayout Spacing="8">
+                <Label x:Name="LblModo" Text="Novo cliente" Style="{StaticResource TituloSecao}" />
+                <Entry x:Name="TxtNome" Placeholder="Nome" MaxLength="50" />
+                <Entry x:Name="TxtRG" Placeholder="RG (somente números)" Keyboard="Numeric" MaxLength="10" />
+                <Entry x:Name="TxtTelefone" Placeholder="Telefone, ex.: (41)99999-9999" Keyboard="Telephone" MaxLength="14" />
+            </VerticalStackLayout>
+        </Border>
+
+        <Grid Grid.Row="1" ColumnDefinitions="*, *, *" ColumnSpacing="8">
+            <Button Grid.Column="0" Text="Salvar" Clicked="OnSalvarClicked" />
+            <Button Grid.Column="1" Text="Novo" Style="{StaticResource BotaoSecundario}" Clicked="OnNovoClicked" />
+            <Button Grid.Column="2" x:Name="BtnExcluir" Text="Excluir" Style="{StaticResource BotaoPerigo}"
+                    IsEnabled="False" Clicked="OnExcluirClicked" />
+        </Grid>
+
+        <Label Grid.Row="2" Text="Clientes cadastrados (toque para editar)" Style="{StaticResource TextoSecundario}" />
+
+        <CollectionView Grid.Row="3"
+                        x:Name="ListaClientes"
+                        SelectionMode="Single"
+                        SelectionChanged="OnClienteSelecionado"
+                        EmptyView="Nenhum cliente cadastrado.">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Cliente">
+                    <Border Style="{StaticResource ItemLista}">
+                        <VerticalStackLayout Spacing="2">
+                            <Label Text="{Binding Nome}" FontAttributes="Bold" FontSize="16" />
+                            <Label Text="{Binding Detalhes}" Style="{StaticResource TextoSecundario}" />
+                        </VerticalStackLayout>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+
+</ContentPage>

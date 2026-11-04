@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TDEBancoDados.MainPage"
+             Title="Menu Principal">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="16" MaximumWidthRequest="600">
+
+            <Label Text="Loja"
+                   FontSize="32"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center" />
+
+            <Label Text="Banco de dados relacional com SQLite"
+                   Style="{StaticResource TextoSecundario}"
+                   HorizontalOptions="Center" />
+
+            <Label x:Name="LblResumo"
+                   Style="{StaticResource TextoSecundario}"
+                   HorizontalOptions="Center"
+                   Margin="0,0,0,8" />
+
+            <Border Style="{StaticResource Cartao}">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Cadastro de Clientes" Style="{StaticResource TituloSecao}" />
+                    <Label Text="Incluir, consultar, alterar e excluir clientes." Style="{StaticResource TextoSecundario}" />
+                    <Button Text="Abrir clientes" Clicked="OnClientesClicked" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Style="{StaticResource Cartao}">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Cadastro de Produtos" Style="{StaticResource TituloSecao}" />
+                    <Label Text="Gerencie nome, tipo, preço e estoque dos produtos." Style="{StaticResource TextoSecundario}" />
+                    <Button Text="Abrir produtos" Clicked="OnProdutosClicked" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Style="{StaticResource Cartao}">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Compra" Style="{StaticResource TituloSecao}" />
+                    <Label Text="Registre compras por cliente e adicione os itens de cada compra." Style="{StaticResource TextoSecundario}" />
+                    <Button Text="Abrir compras" Clicked="OnComprasClicked" />
+                </VerticalStackLayout>
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

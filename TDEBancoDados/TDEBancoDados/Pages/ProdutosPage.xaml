@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:TDEBancoDados.Models"
+             x:Class="TDEBancoDados.Pages.ProdutosPage"
+             Title="Cadastro de Produtos">
+
+    <Grid RowDefinitions="Auto, Auto, Auto, *" Padding="16" RowSpacing="12">
+
+        <Border Grid.Row="0" Style="{StaticResource Cartao}">
+            <VerticalStackLayout Spacing="8">
+                <Label x:Name="LblModo" Text="Novo produto" Style="{StaticResource TituloSecao}" />
+                <Entry x:Name="TxtNome" Placeholder="Nome do produto" MaxLength="50" />
+                <Entry x:Name="TxtTipo" Placeholder="Tipo (ex.: Bebida, Limpeza)" MaxLength="50" />
+                <Grid ColumnDefinitions="*, *" ColumnSpacing="8">
+                    <Entry Grid.Column="0" x:Name="TxtPreco" Placeholder="Preço (ex.: 19,90)" Keyboard="Numeric" />
+                    <Entry Grid.Column="1" x:Name="TxtEstoque" Placeholder="Qtd. em estoque" Keyboard="Numeric" />
+                </Grid>
+            </VerticalStackLayout>
+        </Border>
+
+        <Grid Grid.Row="1" ColumnDefinitions="*, *, *" ColumnSpacing="8">
+            <Button Grid.Column="0" Text="Salvar" Clicked="OnSalvarClicked" />
+            <Button Grid.Column="1" Text="Novo" Style="{StaticResource BotaoSecundario}" Clicked="OnNovoClicked" />
+            <Button Grid.Column="2" x:Name="BtnExcluir" Text="Excluir" Style="{StaticResource BotaoPerigo}"
+                    IsEnabled="False" Clicked="OnExcluirClicked" />
+        </Grid>
+
+        <Label Grid.Row="2" Text="Produtos cadastrados (toque para editar)" Style="{StaticResource TextoSecundario}" />
+
+        <CollectionView Grid.Row="3"
+                        x:Name="ListaProdutos"
+                        SelectionMode="Single"
+                        SelectionChanged="OnProdutoSelecionado"
+                        EmptyView="Nenhum produto cadastrado.">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Produto">
+                    <Border Style="{StaticResource ItemLista}">
+                        <VerticalStackLayout Spacing="2">
+                            <Label Text="{Binding NomeProduto}" FontAttributes="Bold" FontSize="16" />
+                            <Label Text="{Binding Detalhes}" Style="{StaticResource TextoSecundario}" />
+                        </VerticalStackLayout>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+
+</ContentPage>
